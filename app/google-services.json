@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "86637520220",
+    "firebase_url": "https://tenderhaltinfo.firebaseio.com",
+    "project_id": "tenderhaltinfo",
+    "storage_bucket": "tenderhaltinfo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86637520220:android:dcf4c74af7dbefb7",
+        "android_client_info": {
+          "package_name": "com.frictionhacks.tenderhaltinfo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86637520220-h4l4h6m1hbf62hak3vp4q4rdur1vepmi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.frictionhacks.tenderhaltinfo",
+            "certificate_hash": "34521938619e3f0d4d2739d20266a3265c9a3df1"
+          }
+        },
+        {
+          "client_id": "86637520220-5cbqmmr4v3g2m7mu0o21mailr71sasae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLRvYt0-KlnAIZNE6PCZAWVs6fzqTaS-Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86637520220-5cbqmmr4v3g2m7mu0o21mailr71sasae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
