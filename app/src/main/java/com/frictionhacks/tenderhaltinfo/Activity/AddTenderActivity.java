@@ -22,7 +22,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class AddTenderActivity extends AppCompatActivity implements MapFragment.LatLngClickListener{
     String unixDate;
-    Button addDate;
+    Button startDate,stopDate;
+
     MapFragment mapFragment;
     LatLng location;
     FrameLayout fm;
@@ -33,11 +34,26 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         fm.setVisibility(View.GONE);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tender);
-        addDate=findViewById(R.id.btn_tender_date);
+
+        startDate=findViewById(R.id.btn_tender_start_date);
+        stopDate=findViewById(R.id.btn_tender_stop_date);
+
+
+        startDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Methods.getDateDialog(AddTenderActivity.this);
+            }
+        });
+
+        stopDate.setOnClickListener(new View.OnClickListener() {
+
+        
         mapFragment = new MapFragment();
         Button button=findViewById(R.id.bt_add_tender_detail_submit);
         button.setOnClickListener(new View.OnClickListener() {
@@ -46,12 +62,8 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
                 submitData();
             }
         });
-        addDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Methods.getDateDialog(AddTenderActivity.this);
-            }
-        });
+        
+
 
         fm = findViewById(R.id.mapContainer);
         fm.setVisibility(View.GONE);

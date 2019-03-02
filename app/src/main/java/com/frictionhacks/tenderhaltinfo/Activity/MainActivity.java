@@ -29,6 +29,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
@@ -70,7 +72,36 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
+
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_navigation, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Take appropriate action for each action item click
+        switch (item.getItemId()) {
+            case R.id.top_navigation_about:
+                // search action
+                return true;
+            case R.id.top_navigation_feedback:
+                // location found
+
+                return true;
+            case R.id.top_navigation_logout:
+                // refresh
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

@@ -2,6 +2,7 @@ package com.frictionhacks.tenderhaltinfo.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 
 import com.frictionhacks.tenderhaltinfo.R;
@@ -12,5 +13,11 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        // get action bar
+        ActionBar actionBar = getActionBar();
+
+        // Enabling Up / Back navigation
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 }

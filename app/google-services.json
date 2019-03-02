@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "86637520220-p5uqj974muqn0o0mutgmqjl8i8sk6du5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.frictionhacks.tenderhaltinfo",
+            "certificate_hash": "d8f8ee8662af1b593163ebf20dee0a5cf2244669"
+          }
+        },
+        {
           "client_id": "86637520220-h4l4h6m1hbf62hak3vp4q4rdur1vepmi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.frictionhacks.tenderhaltinfo",
             "certificate_hash": "34521938619e3f0d4d2739d20266a3265c9a3df1"
+          }
+        },
+        {
+          "client_id": "86637520220-9c1fsklfdlfue6oiej49r4fi84q1mv4c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.frictionhacks.tenderhaltinfo",
+            "certificate_hash": "b41a09bf94409c5e9a83509c65ee0697069a098e"
           }
         },
         {
