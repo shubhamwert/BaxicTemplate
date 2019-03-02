@@ -22,8 +22,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class TenderDetailActivity extends AppCompatActivity {
-Button btnDate,btnSubmit;
+Button btnDate,btnSubmit,btOpen;
 String unixDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,6 @@ String unixDate;
             }
         });
 
-
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +48,7 @@ String unixDate;
             }
         });
     }
+
 
     private void getDarkSky(double lat, double lng, final String unixDate) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -88,4 +89,5 @@ String unixDate;
                 });
         requestQueue.add(jsonObjectRequest);
     }
+
 }

@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class DashboardFragment extends Fragment implements onItemClickListener {
 
+    ContractorTenderDetailAdapter ContractDashTenderAdapter;
 
 
     public DashboardFragment() {
@@ -45,7 +46,7 @@ public class DashboardFragment extends Fragment implements onItemClickListener {
         LinearLayoutManager linearLayout=new LinearLayoutManager(getActivity());
         DashContract.setHasFixedSize(true);
         DashContract.setLayoutManager(linearLayout);
-        ContractorTenderDetailAdapter ContractDashTenderAdapter=new ContractorTenderDetailAdapter();
+        ContractDashTenderAdapter = new ContractorTenderDetailAdapter();
         ContractDashTenderAdapter.setClickListener(new onItemClickListener() {
             @Override
             public void onHaltRequest(View v, int position) {
@@ -65,6 +66,12 @@ public class DashboardFragment extends Fragment implements onItemClickListener {
 
         return v;
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ContractDashTenderAdapter.notifyDataSetChanged();
     }
 
     @Override
