@@ -14,7 +14,6 @@ public class ContractorTenderDetailsDashboardModel {
     public ContractorTenderDetailsDashboardModel() {
         mData=new ArrayList<>();
 
-
     }
 
     static public void init(){

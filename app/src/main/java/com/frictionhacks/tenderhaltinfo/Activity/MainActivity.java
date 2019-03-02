@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        ContractorTenderDetailsDashboardModel.init();
         if (Preferences.getFirstRun(this)) {
             startActivity(new Intent(this, IntroActivity.class));
             finish();

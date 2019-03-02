@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.AddTenderActivity"
-    android:orientation="horizontal"
+   
     >
 
     <RelativeLayout
@@ -15,7 +15,6 @@
         >
 
         <LinearLayout
-            android:id="@+id/TenderId"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:padding="8dp"
@@ -34,6 +33,8 @@
                 android:textSize="16sp"
                 />
             <EditText
+                       android:hint="@string/tenderid"
+                 android:id="@+id/ed_add_activity_tender_name"
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/input_text_border"
@@ -43,7 +44,6 @@
 
         </LinearLayout>
 
-        <!--Start Date-->
 
         <LinearLayout
             android:id="@+id/StartDate"
@@ -115,32 +115,73 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_tender_add_location"
+              android:text="@string/open_map"
+            android:id="@+id/btn_map_tender_open"
             android:layout_width="336dp"
             android:layout_height="48dp"
             android:layout_below="@id/EndDate"
             android:layout_centerHorizontal="true"
             android:background="@drawable/other_button"
             android:layout_marginTop="24dp"
-            android:text="Location"
+       
             android:textColor="#FFFFFF"
             />
 
         <Button
-            android:id="@+id/btn_tender_date"
+                    android:id="@+id/bt_add_tender_detail_submit"
             android:layout_width="336dp"
             android:layout_height="48dp"
             android:layout_below="@id/btn_tender_add_location"
             android:layout_centerHorizontal="true"
             android:background="@drawable/submit_button_border"
             android:layout_marginTop="36dp"
-            android:text="SUBMIT"
+             android:text="@string/submit"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             />
 
-
+ <Button
+        android:elevation="12dp"
+        android:layout_above="@+id/bt_add_tender_detail_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_location"
+        android:id="@+id/btn_add_tender_set_location"/>
     </RelativeLayout>
+
+
+    
+   
+
+  
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_map_location"/>
+    
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:id="@+id/mapContainer"
+        android:visibility="gone"
+        />
+    <Button
+        android:id="@+id/bt_add_tender_detail_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="12dp"
+        android:layout_alignParentBottom="true"
+        android:text="@string/submit"/>
+
+    <Button
+        android:elevation="12dp"
+        android:layout_above="@+id/bt_add_tender_detail_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_location"
+        android:id="@+id/btn_add_tender_set_location"/>
 
 
 </RelativeLayout>

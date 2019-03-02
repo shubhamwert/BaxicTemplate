@@ -15,4 +15,8 @@
     <string name="end">End</string>
     <string name="location">location</string>
     <string name="halt">halt</string>
+    <string name="open_map">open map</string>
+    <string name="add_location">Add Location</string>
+    <string name="submit">submit</string>
+    <string name="add_date">Add Date</string>
 </resources>
