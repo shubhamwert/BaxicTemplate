@@ -12,7 +12,7 @@ public class ContractorTenderDetailsDashboardModel {
     public static ArrayList<TenderDetailWord> mData;
 
     public ContractorTenderDetailsDashboardModel() {
-
+        mData=new ArrayList<>();
     }
 
     static public void init(){
