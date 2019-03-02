@@ -28,8 +28,9 @@ public class ContractorTenderDetailAdapter extends RecyclerView.Adapter<Contract
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     holder.tvTenderId.setText(ContractorTenderDetailsDashboardModel.mData.get(position).getMtenderId());
-        holder.tvLocation.setText(String.format("%s", ContractorTenderDetailsDashboardModel.mData.get(position).getmLat()));
-        holder.tvLocation.append(String.format("%s", ContractorTenderDetailsDashboardModel.mData.get(position).getmLong()));
+//        holder.tvLocation.setText(String.format("%s", ContractorTenderDetailsDashboardModel.mData.get(position).getmLat()));
+//        holder.tvLocation.append(String.format("%s", ContractorTenderDetailsDashboardModel.mData.get(position).getmLong()));
+        holder.tvLocation.setText(ContractorTenderDetailsDashboardModel.mData.get(position).getlocation());
         holder.tvStartDate.setText(ContractorTenderDetailsDashboardModel.mData.get(position).getmDateStart());
         holder.tvEndDate.setText(ContractorTenderDetailsDashboardModel.mData.get(position).getmDataEnd());
         holder.tvStartDate.setText(ContractorTenderDetailsDashboardModel.mData.get(position).getmDateStart());

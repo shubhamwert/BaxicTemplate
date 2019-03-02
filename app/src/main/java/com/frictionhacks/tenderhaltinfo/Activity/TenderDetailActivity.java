@@ -86,7 +86,7 @@ int pos;
 
     private void setUpinitialData() {
         tvTenderId.setText(ContractorTenderDetailsDashboardModel.mData.get(pos).getMtenderId());
-        tvLocation.setText(String.format("Latitude %s Longitude %s", ContractorTenderDetailsDashboardModel.mData.get(pos).getmLat(), ContractorTenderDetailsDashboardModel.mData.get(pos).getmLong()));
+        tvLocation.setText(ContractorTenderDetailsDashboardModel.mData.get(pos).getlocation());
         tvStart.setText(ContractorTenderDetailsDashboardModel.mData.get(pos).getmDateStart());
         tvStop.setText(ContractorTenderDetailsDashboardModel.mData.get(pos).getmDataEnd());
     }

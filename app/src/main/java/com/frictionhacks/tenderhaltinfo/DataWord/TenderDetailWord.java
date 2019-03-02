@@ -9,20 +9,21 @@ public class TenderDetailWord {
     private String mDateStart;
     private String mDataEnd;
     private int mStatus;
-    private String mImageURL;
+    private String location;
+    
 
     public TenderDetailWord() {
         super();
     }
 
-    public TenderDetailWord(String mtenderId, double mLong, double mLat, String mDateStart, String mDataEnd, int mStatus, String mImageURL) {
+    public TenderDetailWord(String mtenderId, double mLong, double mLat, String mDateStart, String mDataEnd, int mStatus, String location) {
         this.mtenderId = mtenderId;
         this.mLong = mLong;
         this.mLat = mLat;
         this.mDateStart = mDateStart;
         this.mDataEnd = mDataEnd;
         this.mStatus = mStatus;
-        this.mImageURL = mImageURL;
+        this.location = location;
     }
 
     public String getMtenderId() {
@@ -73,11 +74,11 @@ public class TenderDetailWord {
         this.mStatus = mStatus;
     }
 
-    public String getmImageURL() {
-        return mImageURL;
+    public String getlocation() {
+        return location;
     }
 
-    public void setmImageURL(String mImageURL) {
-        this.mImageURL = mImageURL;
+    public void setlocation(String location) {
+        this.location = location;
     }
 }
