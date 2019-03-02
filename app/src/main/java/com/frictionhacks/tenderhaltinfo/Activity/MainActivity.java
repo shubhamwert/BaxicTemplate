@@ -84,17 +84,13 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Take appropriate action for each action item click
         switch (item.getItemId()) {
             case R.id.top_navigation_about:
-                // search action
                 return true;
             case R.id.top_navigation_feedback:
-                // location found
 
                 return true;
             case R.id.top_navigation_logout:
-                // refresh
                 return true;
 
             default:

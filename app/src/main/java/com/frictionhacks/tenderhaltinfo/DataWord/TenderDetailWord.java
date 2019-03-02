@@ -11,6 +11,10 @@ public class TenderDetailWord {
     private int mStatus;
     private String mImageURL;
 
+    public TenderDetailWord() {
+        super();
+    }
+
     public TenderDetailWord(String mtenderId, double mLong, double mLat, String mDateStart, String mDataEnd, int mStatus, String mImageURL) {
         this.mtenderId = mtenderId;
         this.mLong = mLong;
