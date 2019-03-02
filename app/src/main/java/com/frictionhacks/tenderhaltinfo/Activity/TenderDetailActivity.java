@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -22,11 +26,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
-public class TenderDetailActivity extends AppCompatActivity {
+public class TenderDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 Button btnDate,btnSubmit;
-String date;
+String date,weatherType;
+Spinner spnWeatherType;
+TextView tvIsVerify;
 int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,8 @@ int pos;
         pos= Objects.requireNonNull(getIntent().getExtras()).getInt("position");
         btnDate=findViewById(R.id.btn_tender_detail_date);
         btnSubmit=findViewById(R.id.btn_tender_detail_submit);
-
+spnWeatherType=findViewById(R.id.spn_tender_detail_main);
+tvIsVerify=findViewById(R.id.tv_tender_detail_is_verify);
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +58,18 @@ int pos;
                 getDarkSky(ContractorTenderDetailsDashboardModel.mData.get(pos).getmLat(),ContractorTenderDetailsDashboardModel.mData.get(pos).getmLong(),date);
             }
         });
+
+    spnWeatherType.setOnItemSelectedListener(this);
+
+        ArrayList<String> categories=new ArrayList<>();
+        categories.add("rain");
+        categories.add("snow");
+        categories.add("other");
+
+
+        ArrayAdapter<String> stringArrayAdapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,categories);
+        stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnWeatherType.setAdapter(stringArrayAdapter);
     }
 
 
@@ -73,8 +93,15 @@ int pos;
                                     JSONObject jsonObject1=jsonArray.getJSONObject(0);
 
                                         Log.d("WEATHER DATA",jsonObject1.getString("precipType"));
-                                  //  rainDetails.add("Date is:"+unixDate+"\n precipIntensity "+jsonObject1.getString("precipIntensity")+"\nprecipType "+jsonObject1.getString("precipType"));
-                                  //  listViewMain.setAdapter(arrayAdapter);
+                                 //   tvIsVerify.setText("Date is:"+unixDate+"\n precipIntensity "+jsonObject1.getString("precipIntensity")+"\nprecipType "+jsonObject1.getString("precipType"));
+                                  if(jsonObject1.getString("precipType").equals(weatherType)){
+                                      tvIsVerify.setText("Yes Verified");
+                                  }
+                                  else{
+                                      tvIsVerify.setText("False request");
+                                  }
+
+                                    //  listViewMain.setAdapter(arrayAdapter);
 
                                 } catch (JSONException e) {
 
@@ -90,7 +117,20 @@ int pos;
 
                     }
                 });
-      //  requestQueue.add(jsonObjectRequest);
+      requestQueue.add(jsonObjectRequest);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        weatherType = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), "Selected: " + weatherType, Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
 }

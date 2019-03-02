@@ -50,7 +50,7 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         startDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Methods.getDateDialog(AddTenderActivity.this);
+                Methods.getDateDialog(getApplicationContext());
             }
         });
 
