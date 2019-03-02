@@ -26,10 +26,10 @@ import static android.content.ContentValues.TAG;
 
 
 public class ProfileFragment extends Fragment {
-FirebaseFirestore db;
-    TextView tvName,tvEmail,tvContractorId;
+private FirebaseFirestore db;
+    private TextView tvName,tvEmail,tvContractorId;
 
-FirebaseAuth mAuth;
+private FirebaseAuth mAuth;
     public ProfileFragment() {
         // Required empty public constructor
     }
