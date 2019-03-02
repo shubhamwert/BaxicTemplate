@@ -59,6 +59,7 @@
             <!--android:layout_height="wrap_content" />-->
 
             <EditText
+                android:inputType="phone"
                 android:id="@+id/editTextMobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,24 +120,17 @@
 
         </LinearLayout>
         <RelativeLayout
+            android:id="@+id/rl_login_otp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/buttons">
-            <TextView
-                android:id="@+id/otpText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="64dp"
-                android:textSize="32sp"
-                android:text="ENTER OTP"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textColor="#034c69" />
+
             <EditText
                 android:id="@+id/editTextCode"
                 android:padding="8dp"
                 android:layout_margin="16dp"
                 android:layout_weight="2"
+                android:inputType="number"
                 android:digits="0123456789"
                 android:textAlignment="center"
                 android:textColor="#3265f5"
@@ -146,7 +140,7 @@
                 android:layout_centerHorizontal="true"
                 android:hint="Enter OTP"
                 android:maxLength="6"
-                android:layout_below="@+id/otpText"/>
+                />
 
 
             <Button

@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,11 +32,12 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText editText2;
     private String person1;
-
+    Button btnContinue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
         person1 = "contractor";
 //        spinner = findViewById(R.id.person);
 //        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, CountryData.person));
@@ -61,11 +64,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.buttonContinue).setOnClickListener(new View.OnClickListener() {
+        btnContinue = findViewById(R.id.buttonContinue);
+        btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                btnContinue.setText("Re-send OTP");
+                findViewById(R.id.rl_login_otp).setVisibility(View.VISIBLE);
                 String number = editText.getText().toString().trim();
+                editText.setEnabled(false);
+                editText.setBackgroundColor(Color.GRAY);
+
 
                 if (number.isEmpty() || number.length() < 10) {
                     editText.setError("Valid number is required");
