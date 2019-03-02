@@ -12,13 +12,15 @@ public class ContractorTenderDetailsDashboardModel {
     public static ArrayList<TenderDetailWord> mData;
 
     public ContractorTenderDetailsDashboardModel() {
+        mData=new ArrayList<>();
+
 
     }
 
     static public void init(){
-mData=new ArrayList<>();
-mData.add(new TenderDetailWord("13413342",12d,12d,"652984756297","76529734562",0,"SampleUrl"));
-        mData.add(new TenderDetailWord("13413342",12d,12d,"652984756297","76529734562",0,"SampleUrl2"));
+    mData=new ArrayList<>();
+    mData.add(new TenderDetailWord("13413342",12d,12d,"652984756297","76529734562",0,"SampleUrl"));
+    mData.add(new TenderDetailWord("13413342",12d,12d,"652984756297","76529734562",0,"SampleUrl2"));
 
 
     }
