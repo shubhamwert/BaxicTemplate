@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
 import com.frictionhacks.tenderhaltinfo.Fragments.DashboardFragment;
 import com.frictionhacks.tenderhaltinfo.Fragments.NotificationFragment;
 import com.frictionhacks.tenderhaltinfo.Fragments.ProfileFragment;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        ContractorTenderDetailsDashboardModel.init();
         dashboardFragment = new DashboardFragment();
 profileFragment=new ProfileFragment();
         fragmentContainer = findViewById(R.id.fragment_container);
