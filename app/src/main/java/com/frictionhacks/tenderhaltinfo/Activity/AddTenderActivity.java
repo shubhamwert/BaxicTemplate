@@ -14,15 +14,15 @@ import com.frictionhacks.tenderhaltinfo.R;
 import com.frictionhacks.tenderhaltinfo.Util.Methods;
 import com.google.android.gms.maps.model.LatLng;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-//Todo device location
 
-public class AddTenderActivity extends AppCompatActivity implements MapFragment.LatLngClickListener{
+public class AddTenderActivity extends AppCompatActivity implements MapFragment.LatLngClickListener {
     String unixDate;
-    Button startDate,stopDate;
+    Button startDate, stopDate;
 
     MapFragment mapFragment;
     LatLng location;
@@ -43,8 +43,8 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tender);
 
-        startDate=findViewById(R.id.btn_tender_start_date);
-        stopDate=findViewById(R.id.btn_tender_stop_date);
+        startDate = findViewById(R.id.btn_tender_start_date);
+        stopDate = findViewById(R.id.btn_tender_stop_date);
 
 
         startDate.setOnClickListener(new View.OnClickListener() {
@@ -63,10 +63,8 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         });
 
 
-
-
-            mapFragment = new MapFragment();
-        Button button=findViewById(R.id.bt_add_tender_detail_submit);
+        mapFragment = new MapFragment();
+        Button button = findViewById(R.id.bt_add_tender_detail_submit);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,46 +77,49 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
 
         fm = findViewById(R.id.mapContainer);
         fm.setVisibility(View.GONE);
-        etTenderId=findViewById(R.id.ed_add_activity_tender_name);
-        Button btnMapOpen=findViewById(R.id.btn_map_tender_open);
+        etTenderId = findViewById(R.id.ed_add_activity_tender_name);
+        Button btnMapOpen = findViewById(R.id.btn_map_tender_open);
         btnMapOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-btnLoctSelect.setVisibility(View.VISIBLE);
+                btnLoctSelect.setVisibility(View.VISIBLE);
                 fm.setVisibility(View.VISIBLE);
-                FragmentManager fm=getSupportFragmentManager();
-                FragmentTransaction ft=fm.beginTransaction();
-                ft.add(R.id.mapContainer,mapFragment);
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.add(R.id.mapContainer, mapFragment);
                 ft.addToBackStack("file");
                 ft.commit();
 
             }
         });
-    btnLoctSelect.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FragmentManager fm=getSupportFragmentManager();
-            FragmentTransaction ft=fm.beginTransaction();
-            btnLoctSelect.setVisibility(View.GONE);
-            ft.remove(mapFragment);
-            ft.commit();
-        }
-    });
+        btnLoctSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                btnLoctSelect.setVisibility(View.GONE);
+                ft.remove(mapFragment);
+                ft.commit();
+            }
+        });
 
-    mapFragment.setLatLng(AddTenderActivity.this);
+        mapFragment.setLatLng(AddTenderActivity.this);
     }
 
     private void submitData() {
-        ContractorTenderDetailsDashboardModel.mData.add(new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,"dateStart","dateEnd",1,"image url"));
-    finish();
+        ContractorTenderDetailsDashboardModel.mData.add(new TenderDetailWord(etTenderId.getText().toString(), location.latitude, location.longitude, "dateStart", "dateEnd", 1, "image url"));
+        finish();
 
     }
+
 
     @Override
     public void onGetLatLng(LatLng latLng) {
-        TextView tv=findViewById(R.id.tv_map_location);
-        tv.setText(String.format("%s", latLng.toString()));
 
-        location= latLng;
+            TextView tv=findViewById(R.id.tv_map_location);
+            tv.setText(String.format("%s", latLng.toString()));
+
+            location= latLng;
+        }
     }
-}
+

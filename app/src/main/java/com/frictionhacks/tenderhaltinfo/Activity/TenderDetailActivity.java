@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
 import com.frictionhacks.tenderhaltinfo.R;
 import com.frictionhacks.tenderhaltinfo.Util.Methods;
 
@@ -21,22 +22,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class TenderDetailActivity extends AppCompatActivity {
-Button btnDate,btnSubmit,btOpen;
-String unixDate;
+import java.util.Objects;
 
+public class TenderDetailActivity extends AppCompatActivity {
+Button btnDate,btnSubmit;
+String date;
+int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tender_detail);
-
+        pos= Objects.requireNonNull(getIntent().getExtras()).getInt("position");
         btnDate=findViewById(R.id.btn_tender_detail_date);
         btnSubmit=findViewById(R.id.btn_tender_detail_submit);
 
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String date=Methods.getDateDialog(TenderDetailActivity.this);
+                date = Methods.getDateDialog(TenderDetailActivity.this);
                 Log.d("DATE",date);
             }
         });
@@ -44,7 +47,7 @@ String unixDate;
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDarkSky(31.07,25.56,unixDate);
+                getDarkSky(ContractorTenderDetailsDashboardModel.mData.get(pos).getmLat(),ContractorTenderDetailsDashboardModel.mData.get(pos).getmLong(),date);
             }
         });
     }
@@ -87,7 +90,7 @@ String unixDate;
 
                     }
                 });
-        requestQueue.add(jsonObjectRequest);
+      //  requestQueue.add(jsonObjectRequest);
     }
 
 }
