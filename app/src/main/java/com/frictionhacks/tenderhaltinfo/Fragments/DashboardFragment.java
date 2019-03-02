@@ -69,8 +69,10 @@ public class DashboardFragment extends Fragment implements onItemClickListener {
         ContractDashTenderAdapter.setClickListener(new onItemClickListener() {
             @Override
             public void onHaltRequest(View v, int position) {
-                Toast.makeText(getActivity(),"sood yaha daal",Toast.LENGTH_SHORT).show();
- startActivity(new Intent(getActivity(), TenderDetailActivity.class));
+
+             Intent intent=new Intent(getActivity(),TenderDetailActivity.class);
+             intent.putExtra("position",position);
+             startActivity(intent);
             }
         });
 
