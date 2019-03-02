@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.ProfileFragment">
+
+    <RelativeLayout
+        android:id="@+id/Profile_Input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="144dp">
+
+        <ImageView
+            android:id="@+id/UserIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_account_circle_grey_144dp"
+            android:layout_centerHorizontal="true"/>
+
+        <!--Name Input-->
+
+        <LinearLayout
+            android:id="@+id/NameInput"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_below="@id/UserIcon"
+            android:padding="8dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            >
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="8dp"
+                android:text="Name"
+                android:textColor="#2E3444"
+                android:textStyle="bold"
+                />
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/input_text_border"
+                android:layout_marginLeft="24dp"
+                />
+
+        </LinearLayout>
+
+        <!--Email Input-->
+
+        <LinearLayout
+            android:id="@+id/Email"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_below="@id/NameInput"
+            android:padding="8dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            >
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="8dp"
+                android:text="Email"
+                android:textColor="#2E3444"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/input_text_border"
+                android:layout_marginLeft="24dp"
+                />
+
+        </LinearLayout>
+
+
+        <!--Contractor Id Input-->
+
+        <LinearLayout
+            android:id="@+id/IdInput"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_below="@id/Email"
+            android:padding="8dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            >
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="8dp"
+                android:text="ID"
+                android:textColor="#2E3444"
+                android:textStyle="bold"
+                />
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/input_text_border"
+                android:layout_marginLeft="24dp"
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_below="@id/IdInput"
+            android:layout_width="338dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:text="SUBMIT"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:background="@drawable/button_border"
+            android:layout_marginTop="24dp"
+            />
+
+    </RelativeLayout>
+</RelativeLayout>
