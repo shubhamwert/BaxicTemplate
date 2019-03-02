@@ -28,10 +28,13 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
     LatLng location;
     FrameLayout fm;
     EditText etTenderId;
+    Button btnLoctSelect;
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         fm.setVisibility(View.GONE);
+        btnLoctSelect.setVisibility(View.INVISIBLE);
     }
 
 
@@ -51,10 +54,18 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
             }
         });
 
-        stopDate.setOnClickListener(new View.OnClickListener() {
 
-        
-        mapFragment = new MapFragment();
+        stopDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Methods.getDateDialog(AddTenderActivity.this);
+            }
+        });
+
+
+
+
+            mapFragment = new MapFragment();
         Button button=findViewById(R.id.bt_add_tender_detail_submit);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +73,9 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
                 submitData();
             }
         });
-        
 
+
+        btnLoctSelect = findViewById(R.id.btn_add_tender_open_location);
 
         fm = findViewById(R.id.mapContainer);
         fm.setVisibility(View.GONE);
@@ -72,7 +84,7 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         btnMapOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+btnLoctSelect.setVisibility(View.VISIBLE);
                 fm.setVisibility(View.VISIBLE);
                 FragmentManager fm=getSupportFragmentManager();
                 FragmentTransaction ft=fm.beginTransaction();
@@ -82,13 +94,12 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
 
             }
         });
-    Button btnLoctSelect =findViewById(R.id.btn_add_tender_set_location);
     btnLoctSelect.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             FragmentManager fm=getSupportFragmentManager();
             FragmentTransaction ft=fm.beginTransaction();
-
+            btnLoctSelect.setVisibility(View.GONE);
             ft.remove(mapFragment);
             ft.commit();
         }
