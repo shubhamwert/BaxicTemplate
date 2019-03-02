@@ -4,15 +4,143 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.AddTenderActivity">
-<Button
-    android:text="Add Date"
-    android:id="@+id/btn_tender_date"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
-    <Button
-        android:text="Add Date"
-        android:id="@+id/btn_tender_date"
+    tools:context=".Activity.AddTenderActivity"
+    android:orientation="horizontal"
+    >
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+
+        >
+
+        <LinearLayout
+            android:id="@+id/TenderId"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:padding="8dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Tender ID"
+                android:textColor="#2E3444"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                />
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/input_text_border"
+                android:layout_marginLeft="24dp"
+                android:padding="8dp"
+                />
+
+        </LinearLayout>
+
+        <!--Start Date-->
+
+        <LinearLayout
+            android:id="@+id/StartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_below="@id/TenderId"
+            android:padding="8dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Start Date"
+                android:textColor="#2E3444"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:editable="false"
+                android:clickable="true"
+                />
+
+            <Button
+                android:id="@+id/btn_tender_start_date"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/input_text_border"
+                android:layout_marginLeft="24dp"
+                android:padding="8dp"
+                android:text="Put Date Picker"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/EndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_below="@id/StartDate"
+            android:padding="8dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="End Date"
+                android:textColor="#2E3444"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                />
+
+            <Button
+                android:id="@+id/btn_tender_stop_date"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/input_text_border"
+                android:layout_marginLeft="24dp"
+                android:padding="8dp"
+                android:text="Date Picker"
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_tender_add_location"
+            android:layout_width="336dp"
+            android:layout_height="48dp"
+            android:layout_below="@id/EndDate"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/other_button"
+            android:layout_marginTop="24dp"
+            android:text="Location"
+            android:textColor="#FFFFFF"
+            />
+
+        <Button
+            android:id="@+id/btn_tender_date"
+            android:layout_width="336dp"
+            android:layout_height="48dp"
+            android:layout_below="@id/btn_tender_add_location"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/submit_button_border"
+            android:layout_marginTop="36dp"
+            android:text="SUBMIT"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            />
+
+
+    </RelativeLayout>
+
+
 </RelativeLayout>

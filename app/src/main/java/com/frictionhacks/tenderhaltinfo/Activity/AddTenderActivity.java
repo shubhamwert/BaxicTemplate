@@ -15,14 +15,23 @@ import java.util.Calendar;
 
 public class AddTenderActivity extends AppCompatActivity {
     String unixDate;
-    Button addDate;
+    Button startDate,stopDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tender);
-        addDate=findViewById(R.id.btn_tender_date);
+        startDate=findViewById(R.id.btn_tender_start_date);
+        stopDate=findViewById(R.id.btn_tender_stop_date);
 
-        addDate.setOnClickListener(new View.OnClickListener() {
+
+        startDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Methods.getDateDialog(AddTenderActivity.this);
+            }
+        });
+
+        stopDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Methods.getDateDialog(AddTenderActivity.this);
