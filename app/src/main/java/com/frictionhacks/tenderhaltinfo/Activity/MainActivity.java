@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import com.frictionhacks.tenderhaltinfo.DataModel.ContractorNotificationModel;
 import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
 import com.frictionhacks.tenderhaltinfo.Fragments.DashboardFragment;
 import com.frictionhacks.tenderhaltinfo.Fragments.NotificationFragment;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+            ContractorNotificationModel.init();
         ContractorTenderDetailsDashboardModel.init();
         if (Preferences.getFirstRun(this)) {
             startActivity(new Intent(this, IntroActivity.class));
