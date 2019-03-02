@@ -54,6 +54,13 @@ public class MapFragment extends Fragment implements GoogleMap.OnMapClickListene
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
+
+                LatLng soa = new LatLng(20.2588, 85.7920);
+                googleMap.addMarker(new MarkerOptions().position(soa).title("Marker Title").snippet("Marker Description"));
+                callback.onGetLatLng(soa);
+
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(soa).zoom(12).build();
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
@@ -65,12 +72,6 @@ public class MapFragment extends Fragment implements GoogleMap.OnMapClickListene
                         Toast.makeText(getActivity(), "Click BAck to see Location", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                LatLng soa = new LatLng(20.2588, 85.7920);
-                googleMap.addMarker(new MarkerOptions().position(soa).title("Marker Title").snippet("Marker Description"));
-
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(soa).zoom(12).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
 

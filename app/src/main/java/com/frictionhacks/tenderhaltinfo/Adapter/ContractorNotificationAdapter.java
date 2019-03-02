@@ -38,6 +38,6 @@ public class ContractorNotificationAdapter extends RecyclerView.Adapter<Contract
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 1;
     }
 }
