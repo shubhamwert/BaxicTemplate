@@ -26,10 +26,8 @@ import static android.content.ContentValues.TAG;
 
 
 public class ProfileFragment extends Fragment {
-private FirebaseFirestore db;
     private TextView tvName,tvEmail,tvContractorId;
 
-private FirebaseAuth mAuth;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -43,8 +41,8 @@ private FirebaseAuth mAuth;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_profile, container, false);
-        db=FirebaseFirestore.getInstance();
-        mAuth=FirebaseAuth.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         tvName=v.findViewById(R.id.tv_profile_frag_name);
         tvEmail=v.findViewById(R.id.tv_profile_frag_email);

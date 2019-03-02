@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
+import com.frictionhacks.tenderhaltinfo.DataWord.NotificationWord;
 import com.frictionhacks.tenderhaltinfo.DataWord.TenderDetailWord;
 import com.frictionhacks.tenderhaltinfo.Fragments.MapFragment;
 import com.frictionhacks.tenderhaltinfo.R;
@@ -125,13 +126,30 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
     private void submitData() {
 
         ContractorTenderDetailsDashboardModel.mData.add(new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,"dateStart","dateEnd",1,"image url"));
-       TenderDetailWord submitData= new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,stringStartDate,stringEndDate,1,"image url");
+       final TenderDetailWord submitData= new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,stringStartDate,stringEndDate,1,"image url");
 
-        db.collection("Contractor").document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber())).collection("Tenders").document(submitData.getMtenderId()).set(submitData).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("Contractor").document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber())).collection("Tenders").document(submitData.getMtenderId())
+                .set(submitData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(AddTenderActivity.this,"updated",Toast.LENGTH_SHORT).show();
-                finish();
+
+                db.collection("Notification").document(Objects.requireNonNull(mAuth.getCurrentUser().getPhoneNumber())).collection("Notifications")
+                        .document(submitData.getMtenderId())
+                        .set(new NotificationWord(submitData.getMtenderId(),"tender "+submitData.getMtenderId()+" have been added"))
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(AddTenderActivity.this,"notification Added",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AddTenderActivity.this,"error setting notification",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

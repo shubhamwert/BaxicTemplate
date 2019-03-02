@@ -28,7 +28,7 @@ public class ContractorNotificationAdapter extends RecyclerView.Adapter<Contract
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    holder.tvNotification.setText(ContractorNotificationModel.mData.get(position).getmNotificationStatus());
+        holder.tvNotification.setText(ContractorNotificationModel.mData.get(position).getmNotificationStatus());
         holder.tvTenderID.setText(ContractorNotificationModel.mData.get(position).getmTenderId());
 
     }
