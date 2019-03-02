@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
 import com.frictionhacks.tenderhaltinfo.DataWord.TenderDetailWord;
@@ -13,8 +14,15 @@ import com.frictionhacks.tenderhaltinfo.Fragments.MapFragment;
 import com.frictionhacks.tenderhaltinfo.R;
 import com.frictionhacks.tenderhaltinfo.Util.Methods;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
+import java.util.Objects;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,12 +30,17 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class AddTenderActivity extends AppCompatActivity implements MapFragment.LatLngClickListener {
     String unixDate;
-    Button startDate, stopDate;
 
+    Button startDate,stopDate;
+    FirebaseFirestore db;
+
+    FirebaseAuth mAuth;
     MapFragment mapFragment;
     LatLng location;
     FrameLayout fm;
     EditText etTenderId;
+    String stringEndDate, stringStartDate;
+
     Button btnLoctSelect;
 
     @Override
@@ -43,14 +56,17 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tender);
 
-        startDate = findViewById(R.id.btn_tender_start_date);
-        stopDate = findViewById(R.id.btn_tender_stop_date);
-
+       mAuth=FirebaseAuth.getInstance();
+        startDate=findViewById(R.id.btn_tender_start_date);
+        stopDate=findViewById(R.id.btn_tender_stop_date);
+        db = FirebaseFirestore.getInstance();
 
         startDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Methods.getDateDialog(getApplicationContext());
+
+                stringStartDate = Methods.getDateDialog(AddTenderActivity.this);
+
             }
         });
 
@@ -58,7 +74,7 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         stopDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Methods.getDateDialog(AddTenderActivity.this);
+                stringEndDate = Methods.getDateDialog(AddTenderActivity.this);
             }
         });
 
@@ -107,8 +123,24 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
     }
 
     private void submitData() {
-        ContractorTenderDetailsDashboardModel.mData.add(new TenderDetailWord(etTenderId.getText().toString(), location.latitude, location.longitude, "dateStart", "dateEnd", 1, "image url"));
-        finish();
+
+        ContractorTenderDetailsDashboardModel.mData.add(new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,"dateStart","dateEnd",1,"image url"));
+       TenderDetailWord submitData= new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,stringStartDate,stringEndDate,1,"image url");
+
+        db.collection("Contractor").document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber())).collection("Tenders").document(submitData.getMtenderId()).set(submitData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(AddTenderActivity.this,"updated",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddTenderActivity.this,"error",Toast.LENGTH_SHORT).show();
+                finish();
+
+            }
+        });
 
     }
 

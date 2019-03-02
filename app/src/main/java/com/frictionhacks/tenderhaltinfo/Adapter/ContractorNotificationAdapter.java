@@ -13,31 +13,37 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ContractorNotificationAdapter extends RecyclerView.Adapter<ContractorNotificationAdapter.ViewHolder> {
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTenderId,tvNotification;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvTenderId=itemView.findViewById(R.id.tv_rv_notification_tender);
-            tvNotification=itemView.findViewById(R.id.tv_rv_notification_noti);
-        }
+
+    public ContractorNotificationAdapter() {
+        super();
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return  new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_notification_adapter_row,parent,false));
+        LayoutInflater ll=LayoutInflater.from(parent.getContext());
+        View v=ll.inflate(R.layout.rv_notification_adapter_row,parent,false);
+        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvTenderId.setText(String.format("%s", ContractorNotificationModel.mData.get(position).getmTenderId()));
-        holder.tvNotification.setText(String.format("%s", ContractorNotificationModel.mData.get(position).getmNotificationStatus()));
-
+    holder.tvNotification.setText(ContractorNotificationModel.mData.get(position).getmNotificationStatus());
+        holder.tvTenderID.setText(ContractorNotificationModel.mData.get(position).getmTenderId());
 
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return ContractorNotificationModel.mData.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        TextView tvTenderID,tvNotification;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvTenderID=itemView.findViewById(R.id.tv_rv_notification_tender);
+            tvNotification=itemView.findViewById(R.id.tv_rv_notification_noti);
+        }
     }
 }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import com.frictionhacks.tenderhaltinfo.DataModel.ContractorNotificationModel;
 import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
 import com.frictionhacks.tenderhaltinfo.Fragments.DashboardFragment;
 import com.frictionhacks.tenderhaltinfo.Fragments.NotificationFragment;
@@ -83,17 +84,13 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Take appropriate action for each action item click
         switch (item.getItemId()) {
             case R.id.top_navigation_about:
-                // search action
                 return true;
             case R.id.top_navigation_feedback:
-                // location found
 
                 return true;
             case R.id.top_navigation_logout:
-                // refresh
                 return true;
 
             default:
@@ -105,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+            ContractorNotificationModel.init();
         ContractorTenderDetailsDashboardModel.init();
         if (Preferences.getFirstRun(this)) {
             startActivity(new Intent(this, IntroActivity.class));
