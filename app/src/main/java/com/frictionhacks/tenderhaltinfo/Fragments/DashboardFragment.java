@@ -12,13 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.frictionhacks.tenderhaltinfo.Activity.AddTenderActivity;
+import com.frictionhacks.tenderhaltinfo.Activity.TenderDetailActivity;
 import com.frictionhacks.tenderhaltinfo.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DashboardFragment extends Fragment {
-Button btnAddTender;
+Button btnAddTender,btnHaltRequest;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -31,11 +32,19 @@ Button btnAddTender;
 
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
     btnAddTender=root.findViewById(R.id.btn_dash_date);
+btnHaltRequest=root.findViewById(R.id.btn_dash_halt);
 
 btnAddTender.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         startActivity(new Intent(getActivity(), AddTenderActivity.class));
+    }
+});
+
+btnHaltRequest.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        startActivity(new Intent(getActivity(), TenderDetailActivity.class));
     }
 });
         return root;
