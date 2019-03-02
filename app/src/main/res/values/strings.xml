@@ -9,4 +9,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_notification">HELLO Notification</string>
     <string name="hello_profile">Hello profile</string>
+    <string name="status">status</string>
+    <string name="tenderid">TEnderId</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="location">location</string>
+    <string name="halt">halt</string>
 </resources>

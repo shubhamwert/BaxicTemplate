@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
 import com.frictionhacks.tenderhaltinfo.Fragments.DashboardFragment;
 import com.frictionhacks.tenderhaltinfo.Fragments.NotificationFragment;
 import com.frictionhacks.tenderhaltinfo.Fragments.ProfileFragment;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         if (Preferences.getFirstRun(this)) {
             startActivity(new Intent(this, IntroActivity.class));
             finish();
@@ -92,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
             BottomNavigationView navigation = findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }
+
+
     }
-
-
     private void getLocationPermission(){
 
         Dexter.withActivity(MainActivity.this)
@@ -138,6 +140,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         builder.show();
+
+        ContractorTenderDetailsDashboardModel.init();
+        dashboardFragment = new DashboardFragment();
+profileFragment=new ProfileFragment();
+        fragmentContainer = findViewById(R.id.fragment_container);
+        fragmentManager=getSupportFragmentManager();
+        notificationFragment=new NotificationFragment();
+        FragmentTransaction fmt=fragmentManager.beginTransaction();
+        fmt.add(R.id.fragment_container,profileFragment);
+        fmt.commit();
+
 
     }
 
