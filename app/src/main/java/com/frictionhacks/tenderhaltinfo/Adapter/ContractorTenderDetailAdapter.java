@@ -3,6 +3,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
 import com.frictionhacks.tenderhaltinfo.R;
@@ -42,7 +44,7 @@ public class ContractorTenderDetailAdapter extends RecyclerView.Adapter<Contract
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 TextView tvTenderId,tvStartDate,tvEndDate,tvLocation,tvStatus;
-Button haltButton;
+ImageView haltButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

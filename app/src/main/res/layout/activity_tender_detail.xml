@@ -4,30 +4,146 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".Activity.AddTenderActivity">
-    <Spinner
-        android:id="@+id/spn_tender_detail_main"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
-    <Button
-        android:layout_below="@id/spn_tender_detail_main"
-        android:text="Add Date"
-        android:id="@+id/btn_tender_detail_date"
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tenderid"
+            android:padding="8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/tenderid"
+                android:id="@+id/tv_tender_detail_tenderID"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tv_tender_detail_location"
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/location"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_date"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tv_tender_detail_start_date"
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/location"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/end_date"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tv_tender_detail_end_date"
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/location"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"/>
+    <LinearLayout
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_type_of_calamity"/>
+        <Spinner
+            android:id="@+id/spn_tender_detail_main"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/date"/>
+        <TextView
+            android:padding="7dp"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_marginEnd="12dp"
+            android:id="@+id/tv_tender_detail_date"
+            android:layout_height="wrap_content"
+            android:hint="@string/_2_7_7"/>
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/add_date"
+    android:id="@+id/btn_tender_detail_date"
+    />
+    </LinearLayout>
+
     <TextView
-        android:layout_below="@id/btn_tender_detail_date"
         android:layout_width="match_parent"
         android:textAlignment="center"
         android:layout_height="48dp"
-        android:hint="Is Verified : ---NAN---"
+        android:hint="@string/is_verified_nan"
         android:id="@+id/tv_tender_detail_is_verify"/>
+</LinearLayout>
 
     <Button
-        android:layout_below="@+id/tv_tender_detail_is_verify"
         android:text="SUBMIT"
+        android:layout_alignParentBottom="true"
         android:id="@+id/btn_tender_detail_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

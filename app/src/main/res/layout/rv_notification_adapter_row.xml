@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp">
+<androidx.cardview.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
 
-<RelativeLayout
+    <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <ImageView
@@ -14,18 +18,18 @@
         android:id="@+id/img_rv_noti"
         />
     <TextView
-        android:layout_toRightOf="@id/img_rv_noti"
+        android:layout_toEndOf="@id/img_rv_noti"
         android:id="@+id/tv_rv_notification_tender"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:hint="Tender ID"/>
+        android:hint="@string/tender_id"/>
     <TextView
-        android:layout_toRightOf="@id/img_rv_noti"
+        android:layout_toEndOf="@id/img_rv_noti"
 android:layout_below="@+id/tv_rv_notification_tender"
         android:id="@+id/tv_rv_notification_noti"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:hint="NOTIFICATION"/>
+        android:hint="@string/notification"/>
 </RelativeLayout>
-
 </androidx.cardview.widget.CardView>
+</LinearLayout>
