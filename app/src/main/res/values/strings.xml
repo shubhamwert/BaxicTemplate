@@ -30,4 +30,5 @@
     <string name="date">Date</string>
     <string name="_2_7_7">2/7/7</string>
     <string name="dates">enter date</string>
+    <string name="animations">shared_rv_adder_animation</string>
 </resources>

@@ -24,8 +24,8 @@
         android:layout_marginLeft="5dp"
         android:layout_toEndOf="@id/img_rv_noti"
         android:id="@+id/tv_rv_notification_tender"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="@string/tender_id"/>
     <TextView
         android:layout_marginLeft="5dp"
@@ -34,8 +34,8 @@
         android:layout_toEndOf="@id/img_rv_noti"
 android:layout_below="@+id/tv_rv_notification_tender"
         android:id="@+id/tv_rv_notification_noti"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="@string/notification"/>
 </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -147,7 +147,7 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
 
     private void submitData() throws InterruptedException {
         loc = getReverseLocation(location.latitude,location.longitude);
-
+        if((!etTenderId.getText().toString().isEmpty())&&(location !=null)&&(stringStartDate!=null)&&(stringEndDate!=null)){
         ContractorTenderDetailsDashboardModel.mData.add(new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,"dateStart","dateEnd",1,tv.getText().toString()));
        final TenderDetailWord submitData= new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,stringStartDate,stringEndDate,1,tv.getText().toString());
 
@@ -181,7 +181,8 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
                 finish();
 
             }
-        });
+        });}
+        else {Toast.makeText(this,"please fill details",Toast.LENGTH_SHORT).show();}
 
     }
 

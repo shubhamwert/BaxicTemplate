@@ -55,7 +55,7 @@ ImageView haltButton;
             tvLocation=itemView.findViewById(R.id.tv_rv_contractor_row_tender_location);
             tvStatus=itemView.findViewById(R.id.tv_rv_contractor_row_tender_status);
             haltButton=itemView.findViewById(R.id.bt_rv_contractor_tender_halt_request);
-            haltButton.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override
