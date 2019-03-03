@@ -1,14 +1,18 @@
 package com.frictionhacks.tenderhaltinfo.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +26,14 @@ import com.android.volley.toolbox.Volley;
 import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
 import com.frictionhacks.tenderhaltinfo.R;
 import com.frictionhacks.tenderhaltinfo.Util.Methods;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.nguyenhoanglam.imagepicker.model.Config;
+import com.nguyenhoanglam.imagepicker.model.Image;
+import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,11 +43,15 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class TenderDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-Button btnDate,btnSubmit;
-String date,weatherType;
+Button btnDate,btnSubmit,btnAddImage;
+String date,weatherType,downloadUrl;
 Spinner spnWeatherType;
 TextView tvIsVerify,tvTenderId,tvStart,tvStop,tvLocation,tvDate;
+StorageReference mStorageRef;
 int pos;
+    private String imgName;
+    private String imgPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +60,8 @@ int pos;
         getSupportActionBar().setTitle("Tender Details");
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
-        
+
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         pos= Objects.requireNonNull(getIntent().getExtras()).getInt("position");
         tvTenderId=findViewById(R.id.tv_tender_detail_tenderID);
         tvStart=findViewById(R.id.tv_tender_detail_start_date);
@@ -53,7 +70,14 @@ int pos;
         tvDate=findViewById(R.id.tv_tender_detail_date);
         tvDate.setText(getString(R.string.dates));
 
+        btnAddImage=findViewById(R.id.btn_tender_detail_image);
 
+btnAddImage.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        imagePick();
+    }
+});
 
         setUpinitialData();
         btnDate=findViewById(R.id.btn_tender_detail_date);
@@ -149,12 +173,66 @@ int pos;
 
         weatherType = parent.getItemAtPosition(position).toString();
         Toast.makeText(parent.getContext(), "Selected: " + weatherType, Toast.LENGTH_LONG).show();
-
+        if(weatherType.equals("other")){
+            btnAddImage.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void imagePick(){
+        ImagePicker.with(TenderDetailActivity.this)
+                .setMultipleMode(false)
+                .setShowCamera(true)
+                .setDoneTitle("Done")
+                .start();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == Config.RC_PICK_IMAGES && resultCode == RESULT_OK && data != null) {
+            ArrayList<Image> images = data.getParcelableArrayListExtra(Config.EXTRA_IMAGES);
+
+            imgPath=images.get(0).getPath();
+            imgName=images.get(0).getName();
+
+            ImageView iv_tender=findViewById(R.id.iv_tender_detail);
+
+            iv_tender.setImageURI(Uri.parse("file://"+imgPath));
+            uploadImage(Uri.parse("file://"+imgPath),imgName);
+
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    private void uploadImage(Uri imgPath,String imgName){
+        final StorageReference sRef = mStorageRef.child("images/"+imgName);
+
+        sRef.putFile(imgPath)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                sRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                  downloadUrl= uri.toString();
+                    }
+                });
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+
+            }
+        });
     }
 
 }
