@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.google.maps.android:android-maps-utils:0.5'
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'commons-io:commons-io:2.4'
 
 
 

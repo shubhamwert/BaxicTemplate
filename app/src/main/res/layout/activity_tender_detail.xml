@@ -4,28 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.AddTenderActivity">
+    tools:context=".Activity.AddTenderActivity"
+    android:padding="8dp">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
     <LinearLayout
+        android:background="@drawable/gradient"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="12dp"
         >
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <TextView
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textAppearance="?android:textAppearanceMedium"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tenderid"
-            android:padding="8dp"/>
+            android:text="Tender ID : "/>
             <TextView
+                android:textStyle="bold"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/white"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/tenderid"
@@ -37,13 +47,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:textColor="@android:color/white"
+android:textAppearance="?android:textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/location"
-                android:padding="8dp"/>
+                android:text="Location : "/>
             <TextView
                 android:id="@+id/tv_tender_detail_location"
-                android:padding="2dp"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@android:color/white"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/location"/>
@@ -52,33 +65,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/start_date"
-                android:padding="8dp"/>
+
+                android:text="Start Date : "
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/white" />
             <TextView
+                android:textColor="@android:color/white"
+
+                android:textAppearance="?android:textAppearanceMedium"
                 android:id="@+id/tv_tender_detail_start_date"
-                android:padding="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/location"/>
+                android:hint="@string/start"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/white"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/end_date"
-                android:padding="8dp"/>
+                android:text="End Date : "/>
             <TextView
                 android:id="@+id/tv_tender_detail_end_date"
-                android:padding="2dp"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/white"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/location"/>
+                android:hint="@string/end"/>
         </LinearLayout>
 
 
@@ -93,6 +115,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/choose_type_of_calamity"/>
@@ -141,10 +164,13 @@
         android:id="@+id/tv_tender_detail_is_verify"/>
 </LinearLayout>
 
+
     <Button
-        android:text="SUBMIT"
         android:layout_alignParentBottom="true"
-        android:id="@+id/btn_tender_detail_submit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="SUBMIT"
+        android:id="@+id/btn_tender_detail_submit"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/submit_button_border"/>
 </RelativeLayout>

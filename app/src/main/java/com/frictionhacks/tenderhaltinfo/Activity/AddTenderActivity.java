@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +48,7 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
     Button startDate,stopDate;
     FirebaseFirestore db;
     String loc;
- TextView tv;
+    TextView tv;
     FirebaseAuth mAuth;
     MapFragment mapFragment;
     LatLng location;
@@ -69,7 +70,9 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tender);
-tv=findViewById(R.id.tv_map_location);
+
+        getSupportActionBar().setTitle("Add Tender");
+        tv=findViewById(R.id.tv_map_location);
        mAuth=FirebaseAuth.getInstance();
         startDate=findViewById(R.id.btn_tender_start_date);
         stopDate=findViewById(R.id.btn_tender_stop_date);
@@ -80,6 +83,7 @@ tv=findViewById(R.id.tv_map_location);
             public void onClick(View v) {
 
                 stringStartDate = Methods.getDateDialog(AddTenderActivity.this);
+                startDate.setText(stringStartDate);
 
             }
         });
@@ -89,6 +93,7 @@ tv=findViewById(R.id.tv_map_location);
             @Override
             public void onClick(View v) {
                 stringEndDate = Methods.getDateDialog(AddTenderActivity.this);
+                stopDate.setText(stringEndDate);
             }
         });
 
@@ -112,7 +117,7 @@ tv=findViewById(R.id.tv_map_location);
         fm = findViewById(R.id.mapContainer);
         fm.setVisibility(View.GONE);
         etTenderId = findViewById(R.id.ed_add_activity_tender_name);
-        Button btnMapOpen = findViewById(R.id.btn_map_tender_open);
+        ImageView btnMapOpen = findViewById(R.id.btn_map_tender_open);
         btnMapOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

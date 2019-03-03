@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 <androidx.cardview.widget.CardView
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp">
 
@@ -12,18 +12,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <ImageView
+        android:layout_centerVertical="true"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_notifications_black_24dp"
         android:id="@+id/img_rv_noti"
+        android:padding="3dp"
         />
     <TextView
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="5dp"
         android:layout_toEndOf="@id/img_rv_noti"
         android:id="@+id/tv_rv_notification_tender"
         android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:hint="@string/tender_id"/>
     <TextView
+        android:layout_marginLeft="5dp"
+        android:textAppearance="?android:textAppearanceSmall"
+
         android:layout_toEndOf="@id/img_rv_noti"
 android:layout_below="@+id/tv_rv_notification_tender"
         android:id="@+id/tv_rv_notification_noti"

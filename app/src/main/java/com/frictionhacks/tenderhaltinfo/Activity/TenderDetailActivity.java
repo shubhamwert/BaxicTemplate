@@ -1,5 +1,6 @@
 package com.frictionhacks.tenderhaltinfo.Activity;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -40,6 +41,10 @@ int pos;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tender_detail);
 
+        getSupportActionBar().setTitle("Tender Details");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
+        
         pos= Objects.requireNonNull(getIntent().getExtras()).getInt("position");
         tvTenderId=findViewById(R.id.tv_tender_detail_tenderID);
         tvStart=findViewById(R.id.tv_tender_detail_start_date);
