@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ import static android.content.ContentValues.TAG;
 public class NotificationFragment extends Fragment {
 private FirebaseFirestore db;
     private ContractorNotificationAdapter contractorNotificationAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
 private FirebaseAuth mAuth;
     public NotificationFragment() {
         // Required empty public constructor
@@ -56,7 +58,13 @@ private FirebaseAuth mAuth;
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         rvNotificationContractor.setHasFixedSize(true);
         rvNotificationContractor.setLayoutManager(linearLayoutManager);
-
+        swipeRefreshLayout=v.findViewById(R.id.srl_notif);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setDataBase();
+            }
+        });
 
         contractorNotificationAdapter = new ContractorNotificationAdapter();
         rvNotificationContractor.setAdapter(contractorNotificationAdapter);
@@ -70,7 +78,7 @@ private FirebaseAuth mAuth;
 
     private void setDataBase() {
         String number= Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber();
-
+        swipeRefreshLayout.setRefreshing(true);
         assert number != null;
         db.collection("Notification").document(number).collection("Notifications").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -86,11 +94,11 @@ private FirebaseAuth mAuth;
                                 NotificationWord contractorDataWord=document.toObject(NotificationWord.class);
 
                                 ContractorNotificationModel.mData.add(contractorDataWord);
-
+                                swipeRefreshLayout.setRefreshing(false);
 
                             }
                         } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            Log.d(TAG, "Error getting documents : ", task.getException());
                         }
 
                     }

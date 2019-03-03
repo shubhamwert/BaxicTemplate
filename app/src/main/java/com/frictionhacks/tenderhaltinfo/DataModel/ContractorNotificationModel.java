@@ -18,7 +18,6 @@ public class ContractorNotificationModel {
 
     static public void init(){
         mData=new ArrayList<>();
-        mData.add(new NotificationWord("2132","notification"));
 
     }
 }
