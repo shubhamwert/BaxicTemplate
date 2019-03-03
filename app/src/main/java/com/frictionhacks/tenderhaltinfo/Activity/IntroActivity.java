@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.frictionhacks.tenderhaltinfo.R;
 import com.frictionhacks.tenderhaltinfo.Util.CubeOutDepthTransformation;
 import com.frictionhacks.tenderhaltinfo.Util.Preferences;
 import com.github.paolorotolo.appintro.AppIntro;
@@ -21,19 +22,20 @@ public class IntroActivity extends AppIntro {
 
 
         SliderPage sp1 = new SliderPage();
-        sp1.setTitle("TITLE1");
-        sp1.setDescription("DES");
-        sp1.setBgColor(Color.parseColor("#00FFAA"));
+        sp1.setTitle("MINISTRY OF ROAD & TRANSPORT");
+        sp1.setDescription("Simply serves the practical solution to the on-field issues");
+        sp1.setImageDrawable(R.drawable.logo);
+        sp1.setBgColor(Color.parseColor("#034C69"));
 
         SliderPage sp2 = new SliderPage();
-        sp2.setTitle("TITLE2");
-        sp2.setDescription("LOCATION WALLI");
-        sp2.setBgColor(Color.parseColor("#00FA2A"));
+        sp2.setTitle("The 3'S");
+        sp2.setDescription("----Simple, Swift & Secure--- ");
+        sp2.setBgColor(Color.parseColor("#3265F5"));
 
         SliderPage sp3 = new SliderPage();
-        sp3.setTitle("TITLE3");
-        sp3.setDescription("DES");
-        sp3.setBgColor(Color.parseColor("#50FF5A"));
+        sp3.setTitle("Real Time Location Access");
+        sp3.setDescription("It requires real time location permission for the exact location of the concerned project  ");
+        sp3.setBgColor(Color.parseColor("#2F8B57"));
 
 
         addSlide(AppIntroFragment.newInstance(sp1));
