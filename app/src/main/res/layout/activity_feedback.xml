@@ -1,9 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activity.FeedbackActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/group1"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text=" •  How was your User Experience?"
+            android:id="@+id/group1head"
+            android:textStyle="bold"
+            />
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/group1head"
+            android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <RadioButton
+                android:id="@+id/radioButton11"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=" Extremely Good"
+                android:textSize="16sp"
+                android:textColor="#2699fb"
+                app:buttonTint="#2699fb"
+                />
+
+            <RadioButton
+                android:id="@+id/radioButton12"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=" Good"
+                android:textSize="16sp"
+                android:textColor="#2699fb"
+                app:buttonTint="#2699fb"/>
+
+            <RadioButton
+                android:id="@+id/radioButton13"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=" Average"
+                android:textSize="16sp"
+                android:textColor="#2699fb"
+                app:buttonTint="#2699fb"/>
+
+        </RadioGroup>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/group2"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_below="@id/group1">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text=" •  How much useful the app is?"
+            android:id="@+id/group2head"
+            android:textStyle="bold"
+            />
+        <RadioGroup
+            android:id="@+id/radioGroup2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/group2head"
+            android:padding="16dp">
+
+            <RadioButton
+                android:id="@+id/radioButton21"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=" Does Justice"
+                android:textSize="16sp"
+                android:textColor="#2699fb"
+                app:buttonTint="#2699fb"
+                />
+
+            <RadioButton
+                android:id="@+id/radioButton22"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=" Good"
+                android:textSize="16sp"
+                android:textColor="#2699fb"
+                app:buttonTint="#2699fb"/>
+
+            <RadioButton
+                android:id="@+id/radioButton23"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=" Not Useful"
+                android:textSize="16sp"
+                android:textColor="#2699fb"
+                app:buttonTint="#2699fb"/>
+
+        </RadioGroup>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/group3"
+        android:layout_below="@id/group2"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text=" •  How was your User Experience?"
+            android:id="@+id/group3head"
+            android:textStyle="bold"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="5"
+            android:layout_below="@id/group3head"
+            android:padding="16dp"/>
+    </RelativeLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/group3"
+        android:layout_margin="16dp"
+        android:text="SUBMIT"
+        android:textColor="#ffffff"
+        android:id="@+id/feedbackSubmit"
+        android:background="@drawable/button_border"/>
+</RelativeLayout>

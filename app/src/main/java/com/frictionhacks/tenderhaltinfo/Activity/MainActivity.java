@@ -6,8 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
+import android.provider.Settings;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import com.frictionhacks.tenderhaltinfo.DataModel.ContractorNotificationModel;
 import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
@@ -25,23 +29,17 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import org.apache.commons.io.FileUtils;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.provider.Settings;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.FrameLayout;
-
-import org.apache.commons.io.FileUtils;
-
 public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
-    FragmentTransaction ftdash,ftpro,ftnoti;
+    FragmentTransaction ftdash, ftpro, ftnoti;
     ProfileFragment profileFragment;
     DashboardFragment dashboardFragment;
     NotificationFragment notificationFragment;
@@ -56,32 +54,31 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
-                    ftpro=fragmentManager.beginTransaction();
-                    ftpro.replace(R.id.fragment_container,profileFragment);
+                    ftpro = fragmentManager.beginTransaction();
+                    ftpro.replace(R.id.fragment_container, profileFragment);
                     ftpro.commit();
                     getSupportActionBar().setTitle("Profile");
                     return true;
                 case R.id.navigation_dashboard:
                     getSupportActionBar().setTitle("DashBoard");
 
-                    ftdash=fragmentManager.beginTransaction();
-                    ftdash.replace(R.id.fragment_container,dashboardFragment);
+                    ftdash = fragmentManager.beginTransaction();
+                    ftdash.replace(R.id.fragment_container, dashboardFragment);
                     ftdash.commit();
 
                     return true;
                 case R.id.navigation_notifications:
                     getSupportActionBar().setTitle("Notification");
 
-                    ftnoti=fragmentManager.beginTransaction();
-                ftnoti.replace(R.id.fragment_container,notificationFragment);
-                ftnoti.commit();
+                    ftnoti = fragmentManager.beginTransaction();
+                    ftnoti.replace(R.id.fragment_container, notificationFragment);
+                    ftnoti.commit();
 
                     return true;
             }
             return false;
         }
     };
-
 
 
     @Override
@@ -91,40 +88,47 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.top_navigation_about:
-                return true;
-            case R.id.top_navigation_feedback:
 
-                return true;
+                break;
+
+            case R.id.top_navigation_feedback:
+                Intent intent=new Intent(this,FeedbackActivity.class);
+                this.startActivity(intent);
+                break;
+
             case R.id.top_navigation_logout:
                 mAuth.signOut();
                 FileUtils.deleteQuietly(getApplicationContext().getCacheDir());
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
 
-                return true;
+                break;
+
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return true;
     }
 
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-            ContractorNotificationModel.init();
+        ContractorNotificationModel.init();
         ContractorTenderDetailsDashboardModel.init();
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
 
 
         if (Preferences.getFirstRun(this)) {
-            Intent intent=new Intent(this, IntroActivity.class);
+            Intent intent = new Intent(this, IntroActivity.class);
             startActivity(intent);
             finish();
         } else {
@@ -157,20 +161,21 @@ if(Preferences.getUser(getApplicationContext()).equals("Government")){
         }
 
     }
-    private void getLocationPermission(){
+
+    private void getLocationPermission() {
 
         Dexter.withActivity(MainActivity.this)
                 .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        Log.d("GRANTED",response.toString());
+                        Log.d("GRANTED", response.toString());
 
                     }
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Log.d("DENIED1",response.toString());
+                        Log.d("DENIED1", response.toString());
                         showSettingsDialog();
 
                     }
@@ -182,6 +187,7 @@ if(Preferences.getUser(getApplicationContext()).equals("Government")){
                 })
                 .check();
     }
+
     private void showSettingsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Need Permissions");
@@ -203,12 +209,12 @@ if(Preferences.getUser(getApplicationContext()).equals("Government")){
 
         ContractorTenderDetailsDashboardModel.init();
         dashboardFragment = new DashboardFragment();
-profileFragment=new ProfileFragment();
+        profileFragment = new ProfileFragment();
         fragmentContainer = findViewById(R.id.fragment_container);
-        fragmentManager=getSupportFragmentManager();
-        notificationFragment=new NotificationFragment();
-        FragmentTransaction fmt=fragmentManager.beginTransaction();
-        fmt.add(R.id.fragment_container,profileFragment);
+        fragmentManager = getSupportFragmentManager();
+        notificationFragment = new NotificationFragment();
+        FragmentTransaction fmt = fragmentManager.beginTransaction();
+        fmt.add(R.id.fragment_container, profileFragment);
         fmt.commit();
 
 
