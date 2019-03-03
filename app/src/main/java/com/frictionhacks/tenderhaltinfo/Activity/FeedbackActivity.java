@@ -13,11 +13,7 @@ public class FeedbackActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
-        // get action bar
-        ActionBar actionBar = getActionBar();
 
-        // Enabling Up / Back navigation
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
 }

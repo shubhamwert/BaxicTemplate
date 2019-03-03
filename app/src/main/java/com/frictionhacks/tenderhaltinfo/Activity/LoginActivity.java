@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 btnContinue.setText("Re-send OTP");
+
                 findViewById(R.id.rl_login_otp).setVisibility(View.VISIBLE);
                 String number = editText.getText().toString().trim();
                 editText.setEnabled(false);
