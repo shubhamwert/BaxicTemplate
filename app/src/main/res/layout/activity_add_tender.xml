@@ -67,7 +67,7 @@
                 android:background="@drawable/input_text_border"
                 android:layout_marginLeft="40dp"
                 android:padding="8dp"
-                android:text="Put Date Picker"
+                android:text="Select Start Date"
                 />
 
         </LinearLayout>
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/input_text_border"
                 android:padding="8dp"
-                android:text="Date Picker"
+                android:text="Select End Date"
                 android:layout_marginLeft="40dp"
                 />
 
@@ -131,7 +131,7 @@
 
 
             <TextView
-                android:hint="Location"
+                android:hint="Click Map to select Location"
                 android:id="@+id/tv_map_location"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -154,30 +154,29 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
 
-<LinearLayout
-    android:elevation="4dp"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="4dp"
+        android:orientation="vertical">
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/mapContainer"
-        android:visibility="gone"
-        />
-    <Button
-        android:elevation="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_location"
-        android:id="@+id/btn_add_tender_open_location"
-        android:visibility="gone"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/submit_button_border"
-        />
-</LinearLayout>
+        <FrameLayout
+            android:id="@+id/mapContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_add_tender_open_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/submit_button_border"
+            android:elevation="12dp"
+            android:text="@string/add_location"
+            android:textColor="#FFFFFF"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </RelativeLayout>

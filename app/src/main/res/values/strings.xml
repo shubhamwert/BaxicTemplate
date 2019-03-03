@@ -10,7 +10,7 @@
     <string name="hello_notification">HELLO Notification</string>
     <string name="hello_profile">Hello profile</string>
     <string name="status">status</string>
-    <string name="tenderid">TEnderId</string>
+    <string name="tenderid">TenderId</string>
     <string name="start">Start</string>
     <string name="end">End</string>
     <string name="location">location</string>
@@ -29,7 +29,7 @@
     <string name="end_date">End Date</string>
     <string name="date">Date</string>
     <string name="_2_7_7">2/7/7</string>
-    <string name="dates">enter date</string>
+    <string name="dates">Enter Date</string>
     <string name="animations">shared_rv_adder_animation</string>
     <string name="contractor_id">Contractor ID</string>
     <string name="pending">pending</string>

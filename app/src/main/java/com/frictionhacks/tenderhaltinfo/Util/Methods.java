@@ -2,9 +2,12 @@ package com.frictionhacks.tenderhaltinfo.Util;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.util.Log;
 import android.widget.DatePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Methods {
 
@@ -33,5 +36,13 @@ private static String unixDate;
         return unixDate ==null?"No_Date": unixDate;
 
 
+    }
+
+
+    public static String  unixToFormat(long unixSeconds){
+        Date date = new java.util.Date(unixSeconds*1000L);
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-YYYY");
+        Log.d("Format Date",sdf.format(date));
+        return sdf.format(date);
     }
 }

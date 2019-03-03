@@ -29,6 +29,7 @@ import com.frictionhacks.tenderhaltinfo.R;
 import com.frictionhacks.tenderhaltinfo.Util.Methods;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -48,7 +49,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class TenderDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-Button btnDate,btnSubmit,btnAddImage;
+Button btnDate,btnSubmit;
+FloatingActionButton btnAddImage;
 String date,weatherType,downloadUrl;
 Spinner spnWeatherType;
 TextView tvIsVerify,tvTenderId,tvStart,tvStop,tvLocation,tvDate;
@@ -58,6 +60,7 @@ FirebaseAuth mAuth;
 int pos;
     private String imgName;
     private String imgPath;
+    private String formatDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +99,11 @@ btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 date = Methods.getDateDialog(TenderDetailActivity.this);
-                tvDate.setText(date);
+
+                if(!date.equals("No_Date")) {
+                    formatDate= Methods.unixToFormat(Long.parseLong(date));
+                }
+                tvDate.setText(formatDate);
                 Log.d("DATE",date);
             }
         });
@@ -204,6 +211,9 @@ btnAddImage.setOnClickListener(new View.OnClickListener() {
         Toast.makeText(parent.getContext(), "Selected: " + weatherType, Toast.LENGTH_LONG).show();
         if(weatherType.equals("other")){
             btnAddImage.setVisibility(View.VISIBLE);
+        }
+        else{
+            btnAddImage.setVisibility(View.GONE);
         }
     }
 
