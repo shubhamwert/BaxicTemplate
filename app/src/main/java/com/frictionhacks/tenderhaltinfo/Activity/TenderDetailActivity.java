@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ import com.frictionhacks.tenderhaltinfo.Util.Methods;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -41,6 +44,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class TenderDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -50,6 +55,8 @@ String date,weatherType,downloadUrl;
 Spinner spnWeatherType;
 TextView tvIsVerify,tvTenderId,tvStart,tvStop,tvLocation,tvDate;
 StorageReference mStorageRef;
+FirebaseFirestore db;
+FirebaseAuth mAuth;
 int pos;
     private String imgName;
     private String imgPath;
@@ -63,7 +70,8 @@ int pos;
         getSupportActionBar().setTitle("Tender Details");
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
-
+        db=FirebaseFirestore.getInstance();
+        mAuth=FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
         pos= Objects.requireNonNull(getIntent().getExtras()).getInt("position");
         tvTenderId=findViewById(R.id.tv_tender_detail_tenderID);
@@ -103,7 +111,9 @@ btnAddImage.setOnClickListener(new View.OnClickListener() {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 getDarkSky(ContractorTenderDetailsDashboardModel.mData.get(pos).getmLat(),ContractorTenderDetailsDashboardModel.mData.get(pos).getmLong(),date);
+
             }
         });
 
@@ -140,6 +150,7 @@ btnAddImage.setOnClickListener(new View.OnClickListener() {
                 (Request.Method.GET, url, null,
                         new Response.Listener<JSONObject>() {
 
+                            @SuppressLint("SetTextI18n")
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
@@ -150,13 +161,31 @@ btnAddImage.setOnClickListener(new View.OnClickListener() {
                                         Log.d("WEATHER DATA",jsonObject1.getString("precipType"));
                                  //   tvIsVerify.setText("Date is:"+unixDate+"\n precipIntensity "+jsonObject1.getString("precipIntensity")+"\nprecipType "+jsonObject1.getString("precipType"));
                                   if(jsonObject1.getString("precipType").equals(weatherType)){
-                                      tvIsVerify.setText("Yes Verified");
+                                      tvIsVerify.setText("requestPassed");
                                   }
                                   else{
-                                      tvIsVerify.setText("False request");
+                                      tvIsVerify.setText("requestnotPassed");
                                   }
 
-                                    //  listViewMain.setAdapter(arrayAdapter);
+                                    Map<String,Object> map=new HashMap<>();
+                                    map.put("tenderID",ContractorTenderDetailsDashboardModel.mData.get(pos).getMtenderId());
+                                    map.put("status",tvIsVerify.getText().toString());
+                                    map.put("date",tvDate.getText().toString());
+                                    map.put("img",downloadUrl);
+
+                                    db.collection("Contractor").document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber())).collection("Tenders").document(ContractorTenderDetailsDashboardModel.mData.get(pos).getMtenderId()).set(map)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(TenderDetailActivity.this,tvIsVerify.getText().toString(),Toast.LENGTH_SHORT).show();
+
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(TenderDetailActivity.this, "Error uploading Data", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
 
                                 } catch (JSONException e) {
 
@@ -232,6 +261,7 @@ btnAddImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onSuccess(Uri uri) {
                   downloadUrl= uri.toString();
+                        Toast.makeText(TenderDetailActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -239,7 +269,7 @@ btnAddImage.setOnClickListener(new View.OnClickListener() {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
+                Toast.makeText(TenderDetailActivity.this, "Problem in getting image", Toast.LENGTH_SHORT).show();
 
             }
         });

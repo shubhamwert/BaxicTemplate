@@ -75,7 +75,7 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tender);
 
-        getSupportActionBar().setTitle("Add Tender");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Add Tender");
         tv=findViewById(R.id.tv_map_location);
        mAuth=FirebaseAuth.getInstance();
         startDate=findViewById(R.id.btn_tender_start_date);

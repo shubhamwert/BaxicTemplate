@@ -40,7 +40,7 @@ import static android.content.ContentValues.TAG;
 public class NotificationFragment extends Fragment {
 private FirebaseFirestore db;
     private ContractorNotificationAdapter contractorNotificationAdapter;
-    SwipeRefreshLayout swipeRefreshLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
 private FirebaseAuth mAuth;
     public NotificationFragment() {
         // Required empty public constructor
