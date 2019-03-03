@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
-        person1 = "contractor";
+        person1 = "Contractor";
 //        spinner = findViewById(R.id.person);
 //        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, CountryData.person));
         FirebaseApp.initializeApp(this);
@@ -47,6 +47,19 @@ public class LoginActivity extends AppCompatActivity {
         editText = findViewById(R.id.editTextMobile);
         mAuth = FirebaseAuth.getInstance();
 
+        String user=Preferences.getUser(getApplicationContext());
+        if (FirebaseAuth.getInstance().getCurrentUser() != null && user.equals("Contractor")) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
+        if(FirebaseAuth.getInstance().getCurrentUser() != null && user.equals("Government")){
+            Intent intent = new Intent(this, GovtMainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        finish();
+        }
 
         findViewById(R.id.contractor).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,17 +137,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        String user=Preferences.getUser(getApplicationContext());
-        if (FirebaseAuth.getInstance().getCurrentUser() != null && user.equals("Contractor")) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-        if(FirebaseAuth.getInstance().getCurrentUser() != null && user.equals("Government")){
-            Intent intent = new Intent(this, GovtMainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
+
     }
 
 
