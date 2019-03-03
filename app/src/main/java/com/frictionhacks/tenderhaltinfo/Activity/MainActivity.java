@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
 
+
         if (Preferences.getFirstRun(this)) {
             Intent intent = new Intent(this, IntroActivity.class);
             startActivity(intent);
@@ -136,6 +137,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
             } else {
+
+if(Preferences.getUser(getApplicationContext()).equals("Government")){
+    startActivity(new Intent(MainActivity.this,GovtMainActivity.class));
+    finish();
+}
+
 
                 getLocationPermission();
 
