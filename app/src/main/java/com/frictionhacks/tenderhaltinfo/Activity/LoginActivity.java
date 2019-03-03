@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.frictionhacks.tenderhaltinfo.R;
+import com.frictionhacks.tenderhaltinfo.Util.Preferences;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -51,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 person1 = "Contractor";
+                findViewById(R.id.contractor).setBackgroundColor(Color.BLUE);
+                findViewById(R.id.official).setBackgroundColor(Color.WHITE);
             }
 
 
@@ -60,7 +63,9 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.official).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                person1 = "Government Official";
+                person1 = "Government";
+                findViewById(R.id.contractor).setBackgroundColor(Color.WHITE);
+                findViewById(R.id.official).setBackgroundColor(Color.BLUE);
             }
         });
 
@@ -98,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                 findViewById(R.id.buttonSignIn).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Preferences.setUser(getApplicationContext(),person1);
                         String code = editText2.getText().toString().trim();
 
                         if (code.isEmpty() || code.length() < 6) {
@@ -118,11 +123,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+        String user=Preferences.getUser(getApplicationContext());
+        if (FirebaseAuth.getInstance().getCurrentUser() != null && user.equals("Contractor")) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
+            startActivity(intent);
+        }
+        if(FirebaseAuth.getInstance().getCurrentUser() != null && user.equals("Government")){
+            Intent intent = new Intent(this, GovtMainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }

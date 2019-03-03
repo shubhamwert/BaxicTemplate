@@ -23,8 +23,10 @@ import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
 EditText etName,etEmail,etContractorId;
+TextView tv;
 FirebaseFirestore db;
 FirebaseAuth mAuth;
+String personType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +38,16 @@ FirebaseAuth mAuth;
         etName=findViewById(R.id.et_profile_name);
         etEmail=findViewById(R.id.et_profile_email);
         etContractorId=findViewById(R.id.et_profile_contractor_id);
-
+        personType=getIntent().getStringExtra("person1");
+        tv=findViewById(R.id.tv_profile_contractor_id);
+        tv.setText(personType + "Id");
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+                if (personType.equals("Contractor")){
                 Map<String,Object> map=new HashMap<>();
                 map.put("Name",etName.getText().toString());
                 map.put("Email",etEmail.getText().toString());
@@ -55,7 +63,27 @@ FirebaseAuth mAuth;
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(ProfileActivity.this, "ERROR ADDING", Toast.LENGTH_SHORT).show();
                     }
-                });
+                });}
+                else {
+                    Map<String,Object> map=new HashMap<>();
+                    map.put("Name",etName.getText().toString());
+                    map.put("Email",etEmail.getText().toString());
+                    map.put("GOvID",etContractorId.getText().toString());
+                    db.collection("GovermentOf").document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber()))
+                            .set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            startActivity(new Intent(ProfileActivity.this,GovtMainActivity.class));
+                            Toast.makeText(ProfileActivity.this, "Success ADDING", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ProfileActivity.this, "ERROR ADDING", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
 
 
             }
