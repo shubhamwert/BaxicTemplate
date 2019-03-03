@@ -14,10 +14,6 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        // get action bar
-        ActionBar actionBar = getActionBar();
 
-        // Enabling Up / Back navigation
-        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 }

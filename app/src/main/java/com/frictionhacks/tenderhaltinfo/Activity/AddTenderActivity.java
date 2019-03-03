@@ -57,6 +57,10 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
     String stringEndDate, stringStartDate;
 
     Button btnLoctSelect;
+    private String formatStartDate;
+    private String formatStopDate;
+    private String formatDateStart;
+    private String formatDateEnd;
 
     @Override
     public void onBackPressed() {
@@ -83,7 +87,11 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
             public void onClick(View v) {
 
                 stringStartDate = Methods.getDateDialog(AddTenderActivity.this);
-                startDate.setText(stringStartDate);
+
+                if(!stringStartDate.equals("No_Date")) {
+                    formatDateStart = Methods.unixToFormat(Long.parseLong(stringStartDate));
+                }
+                startDate.setText(formatDateStart);
 
             }
         });
@@ -93,7 +101,10 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
             @Override
             public void onClick(View v) {
                 stringEndDate = Methods.getDateDialog(AddTenderActivity.this);
-                stopDate.setText(stringEndDate);
+                if(!stringEndDate.equals("No_Date")) {
+                    formatDateEnd = Methods.unixToFormat(Long.parseLong(stringEndDate));
+                }
+                stopDate.setText(formatDateEnd);
             }
         });
 

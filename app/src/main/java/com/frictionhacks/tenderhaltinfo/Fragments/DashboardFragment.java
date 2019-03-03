@@ -19,6 +19,7 @@ import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboa
 import com.frictionhacks.tenderhaltinfo.DataWord.ContractorDataWord;
 import com.frictionhacks.tenderhaltinfo.DataWord.TenderDetailWord;
 import com.frictionhacks.tenderhaltinfo.R;
+import com.frictionhacks.tenderhaltinfo.Util.Methods;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -129,6 +130,7 @@ public class DashboardFragment extends Fragment implements onItemClickListener {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
 
                                TenderDetailWord contractorDataWord=document.toObject(TenderDetailWord.class);
+
 
                                 ContractorTenderDetailsDashboardModel.mData.add(contractorDataWord);
                                 swipeRefreshLayout.setRefreshing(false);
