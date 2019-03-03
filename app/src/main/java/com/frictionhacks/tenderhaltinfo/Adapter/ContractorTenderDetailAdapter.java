@@ -3,6 +3,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
 import com.frictionhacks.tenderhaltinfo.R;
@@ -26,8 +28,9 @@ public class ContractorTenderDetailAdapter extends RecyclerView.Adapter<Contract
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     holder.tvTenderId.setText(ContractorTenderDetailsDashboardModel.mData.get(position).getMtenderId());
-        holder.tvLocation.setText(String.format("%s", ContractorTenderDetailsDashboardModel.mData.get(position).getmLat()));
-        holder.tvLocation.append(String.format("%s", ContractorTenderDetailsDashboardModel.mData.get(position).getmLong()));
+//        holder.tvLocation.setText(String.format("%s", ContractorTenderDetailsDashboardModel.mData.get(position).getmLat()));
+//        holder.tvLocation.append(String.format("%s", ContractorTenderDetailsDashboardModel.mData.get(position).getmLong()));
+        holder.tvLocation.setText(ContractorTenderDetailsDashboardModel.mData.get(position).getlocation());
         holder.tvStartDate.setText(ContractorTenderDetailsDashboardModel.mData.get(position).getmDateStart());
         holder.tvEndDate.setText(ContractorTenderDetailsDashboardModel.mData.get(position).getmDataEnd());
         holder.tvStartDate.setText(ContractorTenderDetailsDashboardModel.mData.get(position).getmDateStart());
@@ -42,7 +45,7 @@ public class ContractorTenderDetailAdapter extends RecyclerView.Adapter<Contract
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 TextView tvTenderId,tvStartDate,tvEndDate,tvLocation,tvStatus;
-Button haltButton;
+ImageView haltButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -16,6 +16,10 @@ private  String mNotificationStatus;
         return mNotificationStatus;
     }
 
+    public NotificationWord() {
+
+    }
+
     public void setmNotificationStatus(String mNotificationStatus) {
         this.mNotificationStatus = mNotificationStatus;
 

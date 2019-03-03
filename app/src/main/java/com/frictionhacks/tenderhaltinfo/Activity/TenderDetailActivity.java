@@ -1,5 +1,6 @@
 package com.frictionhacks.tenderhaltinfo.Activity;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -33,21 +34,37 @@ public class TenderDetailActivity extends AppCompatActivity implements AdapterVi
 Button btnDate,btnSubmit;
 String date,weatherType;
 Spinner spnWeatherType;
-TextView tvIsVerify;
+TextView tvIsVerify,tvTenderId,tvStart,tvStop,tvLocation,tvDate;
 int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tender_detail);
+
+        getSupportActionBar().setTitle("Tender Details");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
+        
         pos= Objects.requireNonNull(getIntent().getExtras()).getInt("position");
+        tvTenderId=findViewById(R.id.tv_tender_detail_tenderID);
+        tvStart=findViewById(R.id.tv_tender_detail_start_date);
+        tvStop=findViewById(R.id.tv_tender_detail_end_date);
+        tvLocation=findViewById(R.id.tv_tender_detail_location);
+        tvDate=findViewById(R.id.tv_tender_detail_date);
+        tvDate.setText(getString(R.string.dates));
+
+
+
+        setUpinitialData();
         btnDate=findViewById(R.id.btn_tender_detail_date);
         btnSubmit=findViewById(R.id.btn_tender_detail_submit);
-spnWeatherType=findViewById(R.id.spn_tender_detail_main);
-tvIsVerify=findViewById(R.id.tv_tender_detail_is_verify);
+        spnWeatherType=findViewById(R.id.spn_tender_detail_main);
+        tvIsVerify=findViewById(R.id.tv_tender_detail_is_verify);
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 date = Methods.getDateDialog(TenderDetailActivity.this);
+                tvDate.setText(date);
                 Log.d("DATE",date);
             }
         });
@@ -70,6 +87,13 @@ tvIsVerify=findViewById(R.id.tv_tender_detail_is_verify);
         ArrayAdapter<String> stringArrayAdapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,categories);
         stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnWeatherType.setAdapter(stringArrayAdapter);
+    }
+
+    private void setUpinitialData() {
+        tvTenderId.setText(ContractorTenderDetailsDashboardModel.mData.get(pos).getMtenderId());
+        tvLocation.setText(ContractorTenderDetailsDashboardModel.mData.get(pos).getlocation());
+        tvStart.setText(ContractorTenderDetailsDashboardModel.mData.get(pos).getmDateStart());
+        tvStop.setText(ContractorTenderDetailsDashboardModel.mData.get(pos).getmDataEnd());
     }
 
 

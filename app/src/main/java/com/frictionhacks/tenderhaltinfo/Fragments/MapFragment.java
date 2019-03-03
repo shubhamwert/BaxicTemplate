@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 
 
 public class MapFragment extends Fragment implements GoogleMap.OnMapClickListener {
-    LatLngClickListener callback;
+    private LatLngClickListener callback;
     private GoogleMap googleMap;
     private MapView mMapView;
 

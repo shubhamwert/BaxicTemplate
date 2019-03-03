@@ -1,14 +1,24 @@
 package com.frictionhacks.tenderhaltinfo.Activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.frictionhacks.tenderhaltinfo.DataModel.ContractorTenderDetailsDashboardModel;
+import com.frictionhacks.tenderhaltinfo.DataWord.NotificationWord;
 import com.frictionhacks.tenderhaltinfo.DataWord.TenderDetailWord;
 import com.frictionhacks.tenderhaltinfo.Fragments.MapFragment;
 import com.frictionhacks.tenderhaltinfo.R;
@@ -20,6 +30,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -30,10 +44,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class AddTenderActivity extends AppCompatActivity implements MapFragment.LatLngClickListener {
     String unixDate;
-
+    String stg;
     Button startDate,stopDate;
     FirebaseFirestore db;
-
+    String loc;
+    TextView tv;
     FirebaseAuth mAuth;
     MapFragment mapFragment;
     LatLng location;
@@ -56,6 +71,8 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tender);
 
+        getSupportActionBar().setTitle("Add Tender");
+        tv=findViewById(R.id.tv_map_location);
        mAuth=FirebaseAuth.getInstance();
         startDate=findViewById(R.id.btn_tender_start_date);
         stopDate=findViewById(R.id.btn_tender_stop_date);
@@ -66,6 +83,7 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
             public void onClick(View v) {
 
                 stringStartDate = Methods.getDateDialog(AddTenderActivity.this);
+                startDate.setText(stringStartDate);
 
             }
         });
@@ -75,6 +93,7 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
             @Override
             public void onClick(View v) {
                 stringEndDate = Methods.getDateDialog(AddTenderActivity.this);
+                stopDate.setText(stringEndDate);
             }
         });
 
@@ -84,7 +103,11 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitData();
+                try {
+                    submitData();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -94,7 +117,7 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         fm = findViewById(R.id.mapContainer);
         fm.setVisibility(View.GONE);
         etTenderId = findViewById(R.id.ed_add_activity_tender_name);
-        Button btnMapOpen = findViewById(R.id.btn_map_tender_open);
+        ImageView btnMapOpen = findViewById(R.id.btn_map_tender_open);
         btnMapOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,16 +145,34 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
         mapFragment.setLatLng(AddTenderActivity.this);
     }
 
-    private void submitData() {
+    private void submitData() throws InterruptedException {
+        loc = getReverseLocation(location.latitude,location.longitude);
 
-        ContractorTenderDetailsDashboardModel.mData.add(new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,"dateStart","dateEnd",1,"image url"));
-       TenderDetailWord submitData= new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,stringStartDate,stringEndDate,1,"image url");
+        ContractorTenderDetailsDashboardModel.mData.add(new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,"dateStart","dateEnd",1,tv.getText().toString()));
+       final TenderDetailWord submitData= new TenderDetailWord(etTenderId.getText().toString(),location.latitude,location.longitude,stringStartDate,stringEndDate,1,tv.getText().toString());
 
-        db.collection("Contractor").document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber())).collection("Tenders").document(submitData.getMtenderId()).set(submitData).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("Contractor").document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber())).collection("Tenders").document(submitData.getMtenderId())
+                .set(submitData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(AddTenderActivity.this,"updated",Toast.LENGTH_SHORT).show();
-                finish();
+
+                db.collection("Notification").document(Objects.requireNonNull(mAuth.getCurrentUser().getPhoneNumber())).collection("Notifications")
+                        .document(submitData.getMtenderId())
+                        .set(new NotificationWord(submitData.getMtenderId(),"tender "+submitData.getMtenderId()+" have been added"))
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(AddTenderActivity.this,"notification Added",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AddTenderActivity.this,"error setting notification",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -144,14 +185,66 @@ public class AddTenderActivity extends AppCompatActivity implements MapFragment.
 
     }
 
+    public  String getReverseLocation( double lat, double lng){
 
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        String url = "https://api.opencagedata.com/geocode/v1/json?q="+lat+"+"+lng+"&key=46286ea420794543a0c13410cc91a460";
+
+        Log.v("OPEN CAGE",url);
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    TextView tv=findViewById(R.id.tv_map_location);
+                                    JSONArray jsonArray=response.getJSONArray("results");
+                                    JSONObject jsonObject=jsonArray.getJSONObject(0);
+                                    //JSONObject jsonObject1=jsonObject.getJSONObject("components");
+
+                                    stg = jsonObject.getString("formatted");
+
+                                    Log.d("CITY NAME",stg);
+                                    tv.setText(stg);
+
+
+                                    //  listViewMain.setAdapter(arrayAdapter);
+
+                                } catch (JSONException e) {
+
+                                    e.printStackTrace();
+
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Open Cage Error", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+        requestQueue.add(jsonObjectRequest);
+
+return stg;
+    }
     @Override
-    public void onGetLatLng(LatLng latLng) {
-
-            TextView tv=findViewById(R.id.tv_map_location);
-            tv.setText(String.format("%s", latLng.toString()));
-
+    public void onGetLatLng(final LatLng latLng) {
             location= latLng;
+
+
+
+
+
+        loc=getReverseLocation(latLng.latitude,latLng.longitude);
+
+
+        Log.d("loc error :: ", "onGetLatLng: "+loc);
+
         }
     }
 

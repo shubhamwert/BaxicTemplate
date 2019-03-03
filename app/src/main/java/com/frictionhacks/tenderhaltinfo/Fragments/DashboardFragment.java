@@ -42,9 +42,9 @@ import static android.content.ContentValues.TAG;
 
 public class DashboardFragment extends Fragment implements onItemClickListener {
 
-    ContractorTenderDetailAdapter ContractDashTenderAdapter;
-    FirebaseFirestore db;
-    FirebaseAuth mAuth;
+    private ContractorTenderDetailAdapter ContractDashTenderAdapter;
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
 
     public DashboardFragment() {
         // Required empty public constructor

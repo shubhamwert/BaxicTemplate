@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.DashboardFragment">
-
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    tools:context=".Fragments.DashboardFragment"
     >
     <!-- TODO: Update blank fragment layout -->
    <androidx.recyclerview.widget.RecyclerView
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:id="@+id/dashboard_rv_tender_details_contractor"/>
+       android:id="@+id/dashboard_rv_tender_details_contractor"
+       android:background="@drawable/gradient"/>
 
 
 
@@ -21,9 +20,10 @@
     android:id="@+id/fab_dash_add_tender"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@drawable/ic_person_black"
+    android:src="@drawable/ic_add_black_24dp"
     android:layout_alignParentEnd="true"
+    android:layout_alignParentBottom="true"
+    android:layout_margin="12dp"
 />
 </RelativeLayout>
 
-</FrameLayout>

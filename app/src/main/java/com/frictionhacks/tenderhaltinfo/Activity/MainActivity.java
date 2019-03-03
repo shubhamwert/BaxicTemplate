@@ -17,6 +17,7 @@ import com.frictionhacks.tenderhaltinfo.Fragments.ProfileFragment;
 import com.frictionhacks.tenderhaltinfo.R;
 import com.frictionhacks.tenderhaltinfo.Util.Preferences;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -24,6 +25,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -35,12 +37,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import org.apache.commons.io.FileUtils;
+
 public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     FragmentTransaction ftdash,ftpro,ftnoti;
     ProfileFragment profileFragment;
     DashboardFragment dashboardFragment;
     NotificationFragment notificationFragment;
+    FirebaseAuth mAuth;
 
 
     FrameLayout fragmentContainer;
@@ -54,8 +59,10 @@ public class MainActivity extends AppCompatActivity {
                     ftpro=fragmentManager.beginTransaction();
                     ftpro.replace(R.id.fragment_container,profileFragment);
                     ftpro.commit();
+                    getSupportActionBar().setTitle("Profile");
                     return true;
                 case R.id.navigation_dashboard:
+                    getSupportActionBar().setTitle("DashBoard");
 
                     ftdash=fragmentManager.beginTransaction();
                     ftdash.replace(R.id.fragment_container,dashboardFragment);
@@ -63,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_notifications:
-                ftnoti=fragmentManager.beginTransaction();
+                    getSupportActionBar().setTitle("Notification");
+
+                    ftnoti=fragmentManager.beginTransaction();
                 ftnoti.replace(R.id.fragment_container,notificationFragment);
                 ftnoti.commit();
 
@@ -91,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.top_navigation_logout:
+                mAuth.signOut();
+                FileUtils.deleteQuietly(getApplicationContext().getCacheDir());
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+
                 return true;
 
             default:
@@ -104,25 +117,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
             ContractorNotificationModel.init();
         ContractorTenderDetailsDashboardModel.init();
+        mAuth=FirebaseAuth.getInstance();
+
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
+
         if (Preferences.getFirstRun(this)) {
-            startActivity(new Intent(this, IntroActivity.class));
+            Intent intent=new Intent(this, IntroActivity.class);
+            startActivity(intent);
             finish();
         } else {
-            getLocationPermission();
 
-            dashboardFragment = new DashboardFragment();
-            profileFragment = new ProfileFragment();
-            fragmentContainer = findViewById(R.id.fragment_container);
-            fragmentManager = getSupportFragmentManager();
-            notificationFragment = new NotificationFragment();
-            FragmentTransaction fmt = fragmentManager.beginTransaction();
-            fmt.add(R.id.fragment_container, profileFragment);
-            fmt.commit();
+            if (mAuth.getCurrentUser() == null) {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
+            } else {
 
-            BottomNavigationView navigation = findViewById(R.id.navigation);
-            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+                getLocationPermission();
+
+                dashboardFragment = new DashboardFragment();
+                profileFragment = new ProfileFragment();
+                fragmentContainer = findViewById(R.id.fragment_container);
+                fragmentManager = getSupportFragmentManager();
+                notificationFragment = new NotificationFragment();
+                FragmentTransaction fmt = fragmentManager.beginTransaction();
+                fmt.add(R.id.fragment_container, profileFragment);
+                fmt.commit();
+
+                BottomNavigationView navigation = findViewById(R.id.navigation);
+                navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+            }
         }
-
 
     }
     private void getLocationPermission(){
